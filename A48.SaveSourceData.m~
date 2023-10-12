@@ -1,0 +1,1246 @@
+%% creating source data for each figure in ms
+% each cell tell which script to run
+
+%%
+addpath(genpath('/mnt/yassamri/iEEG/sandra/analysis_pipeline_final'))
+
+%% figure 1b. First run A001_plot_behavior, transpose the
+% paramters below, then save into table. the cell with lines...
+% 137 has these variables
+T = [ [1:8]' percent_corr repeat_response_accuracy lure_response_accuracy...
+    foil_response_accuracy];% remove zero values
+table = array2table(T, 'VariableNames',{ 'Subject', ...
+    'overallAccuracy', 'repeatAccuracy', ...
+    'lureAccuracy', 'newAccuracy'})
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+writetable(table,'Fig1b.csv')
+
+%% Fig2aTopLeft. A029_cluster_perm_test_group_level.mfirst 
+% then update the freq and define time vec
+
+% TableFreqLegend = cell(1,length(freq)+1)
+% for i=1:length(freq)
+%     TableFreqLegend{i+1} =[ ' Hz' num2str(i)]
+% end
+% TableFreqLegend{1}='time'
+% T = [ linspace(current_pre_stim,current_post_stim, size(zmap,2))'...
+%     zmap' ];% remove zero values
+% 
+% table = array2table(T, 'VariableNames',TableFreqLegend)
+% cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+% 
+% writetable(table,'Fig2aTopLeft.csv')
+
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+save('Fig2aTopLeft.mat','freq', 'time', 'zmap')
+
+%%
+save('Fig2aBottomLeft.mat','freq', 'time', 'zmapthresh')
+%%
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save('Fig2aTopRight.mat','freq', 'time', 'zmap')
+%%
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save('Fig2aBottomRight.mat','freq', 'time', 'zmapthresh')
+%%
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save('Fig2bTopLeft.mat','freq', 'time', 'zmap')
+%% FIG 2b bottom left
+save('Fig2bBottomLeft.mat','freq', 'time', 'zmapthresh')
+%% Fig 2b top middle
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+
+save('Fig2bTopMiddle.mat','freq', 'time', 'zmap')
+
+%% Fig 2b bottom middle
+save('Fig2bBottomMiddle.mat','freq', 'time', 'zmapthresh')
+
+%% Fig 2B top right
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+
+save('Fig2bTopRight.mat','freq', 'time', 'zmap')
+
+%% Fig 2B bottom right
+save('Fig2bBottomRight.mat','freq', 'time', 'zmapthresh')
+
+%% FIG 2C Left. first run A32_bar_plots_post_cluster_analysis.m
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+data = [cond1_grp_val' cond2_grp_val' ...
+    cond3_grp_val' cond4_grp_val']
+
+table = array2table([[1:length(data(:,1))]' data], 'VariableNames',...
+    {'channel','repeat', 'lureMinus', 'lurePlus', 'new'})
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+
+writetable(table,'Fig2cLeft.csv')
+
+%% FIG 2C right. CA3
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+data = [cond1_grp_val' cond2_grp_val' ...
+    cond3_grp_val' cond4_grp_val']
+
+table = array2table([[1:length(data(:,1))]' data], 'VariableNames',...
+    {'channel','repeat', 'lureMinus', 'lurePlus', 'new'})
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+
+writetable(table,'Fig2cRight.csv')
+
+%% FIG 2d left. NC
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+data = [cond1_grp_val' cond2_grp_val' ...
+    cond3_grp_val' cond4_grp_val']
+
+table = array2table([[1:length(data(:,1))]' data], 'VariableNames',...
+    {'channel','repeat', 'lureMinus', 'lurePlus', 'new'})
+
+writetable(table,'Fig2dTopLeft.csv')
+
+%% FIG 2d left. NC
+
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save('Fig2dTopRight.mat','freq', 'time', 'zmap')
+
+%% Fig2cBottomLeft. A035_plot_condition_wise_group_traces.m
+fn = 'Fig2cBottomLeft.mat'
+
+time=linspace(current_pre_stim,current_post_stim, size(trace3,2));
+lurePlus=trace3;
+lureMinus=trace2;
+channelLength=1:size(trace3,1);
+
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'lurePlus', 'lureMinus', 'time', 'channelLength')
+
+clearvars -except fn
+load(fn)
+%% Fig2cBottomRight. A32_bar_plots_post_cluster_analysis.m
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+subjectLength =length(cond3_save);
+LurePluseChanThetaPower=cond3_save;
+LureMinusChanThetaPower=cond2_save;
+
+save('Fig2cBottomRight',...
+    'subjectLength','LurePluseChanThetaPower', ...
+    'LureMinusChanThetaPower')
+%% Fig 3a B004_PTE_function_of_time.m
+timeList_WindowStartTime = time1_list;
+timeList_WindowEndTime   = time2_list;
+ChannelPairLength = size(conda_val_time_mn_store,2);
+LurePlus_FOT_PTE  = condb_val_time_mn_store;
+LureMinus_FOT_PTE = conda_val_time_mn_store
+
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save('Fig3a',...
+    'timeList_WindowStartTime','timeList_WindowEndTime', ...
+    'ChannelPairLength', 'LurePlus_FOT_PTE', 'LureMinus_FOT_PTE')
+
+%% Fig 3d B004_PTE_function_of_time.m
+timeList_WindowStartTime = time1_list;
+timeList_WindowEndTime   = time2_list;
+ChannelPairLength = size(conda_val_time_mn_store,2);
+LurePlus_FOT_PTE  = condb_val_time_mn_store;
+RepeatPlus_FOT_PTE = condc_val_time_mn_store;
+
+fn = 'Fig3d.mat';
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,...
+    'timeList_WindowStartTime','timeList_WindowEndTime', ...
+    'ChannelPairLength', 'LurePlus_FOT_PTE', 'RepeatPlus_FOT_PTE')
+
+clearvars -except fn
+load(fn)
+%% Fig 3e B004_PTE_function_of_time.m
+timeList_WindowStartTime = time1_list;
+timeList_WindowEndTime   = time2_list;
+ChannelPairLength = size(conda_val_time_mn_store,2);
+LurePlus_FOT_PTE  = condb_val_time_mn_store;
+NewPlus_FOT_PTE   = condd_val_time_mn_store;
+
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save('Fig3e',...
+    'timeList_WindowStartTime','timeList_WindowEndTime', ...
+    'ChannelPairLength', 'LurePlus_FOT_PTE', 'NewPlus_FOT_PTE')
+
+%% Fig 3b. B002_NC_HC_plots.m
+lureMinus  = reg1_reg2_conda; % lure-
+lurePlus   = reg1_reg2_condb; % lure+
+repeatPlus = reg1_reg2_condc; % repeat
+newPLus    = reg1_reg2_condd; % new
+channelPairLength = length(reg1_reg2_conda);
+
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save('Fig3b',...
+    'lureMinus','lurePlus', ...
+    'repeatPlus', 'newPLus', 'channelPairLength')
+
+%% figure 3c. TransferEntropy/B002_NC_HC_plots.m. group_plots = ''
+suj_length = 8;
+IndividualSubj_LureMinus_PhaseTransferEntropy = reg1_reg2_LureMinus; % lure-
+IndividualSubj_LurePlus_PhaseTransferEntropy  = reg1_reg2_LurePlus; % lure+
+
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save('Fig3c',...
+    'suj_length','IndividualSubj_LureMinus_PhaseTransferEntropy', ...
+    'IndividualSubj_LurePlus_PhaseTransferEntropy')
+%% Fig4aLeft. A035_plot_condition_wise_group_traces.m
+time=linspace(current_pre_stim,current_post_stim, size(trace3,2));
+channelLength=1:size(trace3,1)
+lurePlus=trace3;
+lureMinus=trace2;
+
+fn = 'Fig4aLeft.mat';
+
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'lurePlus', 'lureMinus', 'time', 'channelLength')
+
+clearvars -except fn
+load(fn)
+
+%% Fig4aRight. A035_plot_condition_wise_group_traces.m
+time=linspace(current_pre_stim,current_post_stim, size(trace3,2));
+channelLength=1:size(trace3,1)
+lurePlus=trace3;
+lureMinus=trace2;
+
+fn = 'Fig4aRight.mat';
+
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'lurePlus', 'lureMinus', 'time', 'channelLength')
+
+clearvars -except fn
+load(fn)
+
+%% Fig4b. A035_plot_condition_wise_group_traces.m
+time=linspace(current_pre_stim,current_post_stim, size(trace3,2));
+channelLength=1:size(trace3,1)
+lurePlus=trace3;
+lureMinus=trace2;
+
+fn = 'Fig4b.mat';
+
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'lurePlus', 'lureMinus', 'time', 'channelLength')
+
+clearvars -except fn
+load(fn)
+
+%% Fig4c B004_PTE_function_of_time.m
+timeList_WindowStartTime = time1_list;
+timeList_WindowEndTime   = time2_list;
+ChannelPairLength = size(conda_val_time_mn_store,2);
+LurePlus_FOT_PTE  = condb_val_time_mn_store;
+LureMinus_FOT_PTE = conda_val_time_mn_store;
+
+fn = 'Fig4c.mat';
+
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'timeList_WindowStartTime','timeList_WindowEndTime', ...
+    'ChannelPairLength', 'LurePlus_FOT_PTE', 'LureMinus_FOT_PTE')
+
+clearvars -except fn
+load(fn)
+
+%% Fig 4d. B002_NC_HC_plots.m
+lureMinus  = reg1_reg2_conda; % lure-
+lurePlus   = reg1_reg2_condb; % lure+
+channelPairLength = length(reg1_reg2_conda);
+
+fn = 'Fig4d.mat';
+
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'lureMinus','lurePlus','channelPairLength')
+
+clearvars -except fn
+load(fn)
+
+%% Fig 4e. B002_NC_HC_plots.m
+suj_length = 8;
+IndividualSubj_LureMinus_PhaseTransferEntropy = reg1_reg2_LureMinus; % lure-
+IndividualSubj_LurePlus_PhaseTransferEntropy  = reg1_reg2_LurePlus; % lure+
+
+fn = 'Fig4e.mat';
+
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'suj_length','IndividualSubj_LureMinus_PhaseTransferEntropy', ...
+    'IndividualSubj_LurePlus_PhaseTransferEntropy')
+
+clearvars -except fn
+load(fn)
+
+%% Fig4ANDf5j. TransferEntropy/B005_region_wise_phase_wise_PTE.m
+phaseDataPerRegion_channelPairPhaseTransferEntropy = phaseDataPerRegion;
+phaseLength  = 3;
+phaseNames   = {'encoding', 'retrievalOnset', 'retrievalResponse'};
+regionLength = 3;
+regionNames  = {'OFC', 'FRO', 'TEPMP'};
+
+fn = 'Fig4AND5j.mat';
+
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+
+save(fn,'phaseDataPerRegion_channelPairPhaseTransferEntropy',...
+    'phaseLength','phaseNames','regionLength','regionNames')
+
+clearvars -except fn
+load(fn)
+
+%% Fig5aRight A029_cluster_perm_test_group_level
+
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+
+fn = 'Fig5aRight.mat';
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'zmap', 'zmapthresh', 'freq', 'time')
+
+clearvars -except fn
+load(fn)
+figure;imagesc(zmap)
+figure;imagesc(zmapthresh)
+%% Fig5aLeft A029_cluster_perm_test_group_level
+
+freq=freq(end:-1:1)
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2))
+
+fn = 'Fig5aLeft.mat';
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'zmap', 'zmapthresh', 'freq', 'time')
+
+clearvars -except fn
+load(fn)
+figure;imagesc(zmap)
+figure;imagesc(zmapthresh)
+
+%% Fig5dRight A029_cluster_perm_test_group_level
+
+freq = freq(end:-1:1)
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2))
+
+fn = 'Fig5dRight.mat';
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'zmap', 'zmapthresh', 'freq', 'time')
+
+clearvars -except fn
+load(fn)
+figure;imagesc(zmap)
+figure;imagesc(zmapthresh)
+
+%% Fig5dLeft A029_cluster_perm_test_group_level
+
+freq = freq(end:-1:1)
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2))
+
+fn = 'Fig5dLeft.mat';
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'zmap', 'zmapthresh', 'freq', 'time')
+
+clearvars -except fn
+load(fn)
+figure;imagesc(zmap)
+figure;imagesc(zmapthresh)
+
+%% Fig5cLeft A029_cluster_perm_test_group_level
+
+freq = freq(end:-1:1)
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2))
+
+fn = 'Fig5cLeft.mat';
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'zmap', 'zmapthresh', 'freq', 'time')
+
+clearvars -except fn
+load(fn)
+figure;imagesc(zmap)
+figure;imagesc(zmapthresh)
+
+%% Fig5cRight A029_cluster_perm_test_group_level
+
+freq = freq(end:-1:1)
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2))
+
+fn = 'Fig5cRight.mat';
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'zmap', 'zmapthresh', 'freq', 'time')
+
+clearvars -except fn
+load(fn)
+figure;imagesc(zmap)
+figure;imagesc(zmapthresh)
+
+%% Fig5fRight A029_cluster_perm_test_group_level
+
+freq = freq(end:-1:1)
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2))
+
+fn = 'Fig5fRight.mat';
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'zmap', 'freq', 'time')
+
+clearvars -except fn
+load(fn)
+figure; imagesc(time, freq, zmap)
+set(gca,'YDir','normal')
+colormap jet; colorbar
+
+%% Fig5fLeft A029_cluster_perm_test_group_level
+
+freq = freq(end:-1:1)
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2))
+
+fn = 'Fig5fLeft.mat';
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'zmap', 'freq', 'time')
+
+clearvars -except fn
+load(fn)
+figure; imagesc(time, freq, zmap)
+set(gca,'YDir','reverse')
+colormap jet; colorbar
+
+%% Fig 5b A40_CondSpec_PSD_EarlyLateRetrieval.m
+freq=F;
+MatrixLabels = 'chansXfreq';
+
+fn = 'Fig5b.mat';
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'cond2', 'cond3','freq', 'MatrixLabels')
+
+clearvars -except fn
+load(fn)
+figure;plot(freq,nanmean(cond3,1), 'm', 'LineWidth', 2);
+xlim([3 20])
+ylim([-50 250])
+%% Fig 5bInset A40_CondSpec_PSD_EarlyLateRetrieval.m
+freq=F;
+MatrixLabels = 'chansXfreq';
+
+fn = 'Fig5bInset.mat';
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'cond2', 'cond3','freq', 'MatrixLabels')
+
+clearvars -except fn
+load(fn)
+figure;plot(freq,nanmean(cond3,1), 'm', 'LineWidth', 2);
+xlim([3 20])
+ylim([-200 800])
+
+%% Fig 5e A40_CondSpec_PSD_EarlyLateRetrieval.m
+freq=F;
+MatrixLabels = 'chansXfreq';
+
+fn = 'Fig5e.mat';
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'cond2', 'cond3','freq', 'MatrixLabels')
+
+clearvars -except fn
+load(fn)
+figure;plot(freq,nanmean(cond3,1), 'm', 'LineWidth', 2);
+xlim([3 20])
+ylim([-10 18])
+%% Fig 5eInset A40_CondSpec_PSD_EarlyLateRetrieval.m
+freq=F;
+MatrixLabels = 'chansXfreq'
+
+fn = 'Fig5eInset.mat';
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'cond2', 'cond3','freq', 'MatrixLabels')
+
+clearvars -except fn
+load(fn)
+figure;
+plot(freq,nanmean(cond3,1), 'm', 'LineWidth', 2);
+hold on;
+plot(freq,nanmean(cond2,1), 'b', 'LineWidth', 2);
+xlim([3 27])
+ylim([-15 45])
+
+%% Fig 5gMiddle A32_bar_plots_post_cluster_analysis.m
+fn = 'Fig5gMiddle.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn, 'cond1_grp_val', 'cond2_grp_val', 'cond3_grp_val', 'cond4_grp_val', 'labels');
+
+clearvars -except fn
+load(fn)
+figure;
+ bar_vector_mn1 = [nanmean(cond1_grp_val) nanmean(cond2_grp_val) nanmean(cond3_grp_val) nanmean(cond4_grp_val)];
+bar(1:4,[bar_vector_mn1])         
+
+ylim([-.4 .3])
+
+%% Fig 5gRight A32_bar_plots_post_cluster_analysis.m
+fn = 'Fig5gRight.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+VaribleDim = 'each cell entry contains trial data for a diff subj. n=4 subj'
+save(fn, 'cond2_save', 'cond3_save', 'VaribleDim');
+
+clearvars -except fn
+load(fn)
+figure;
+hold on
+for i = [1 3 4 5]
+plot([nanmean(cond2_save{i})...
+    nanmean(cond3_save{i})...
+   ], 'LineWidth', 1)
+
+end
+
+%% Fig 5hMiddle A32_bar_plots_post_cluster_analysis.m
+fn = 'Fig5hMiddle.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn, 'cond1_grp_val', 'cond2_grp_val', 'cond3_grp_val', 'cond4_grp_val', 'labels');
+
+clearvars -except fn
+load(fn)
+figure;
+ bar_vector_mn1 = [nanmean(cond1_grp_val) nanmean(cond2_grp_val) nanmean(cond3_grp_val) nanmean(cond4_grp_val)];
+bar(1:4,[bar_vector_mn1])         
+
+
+
+%% Fig 5hRight A32_bar_plots_post_cluster_analysis.m
+fn = 'Fig5hRight.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+VaribleDim = 'each cell entry contains trial data for a diff subj. n=8 subj'
+save(fn, 'cond2_save', 'cond3_save', 'VaribleDim');
+
+clearvars -except fn
+load(fn)
+figure;
+hold on
+for i = [1:8]
+plot([nanmean(cond2_save{i})...
+    nanmean(cond3_save{i})...
+   ], 'LineWidth', 1)
+
+end
+
+%% Fig5i B006_interaction_diff_between_early_late_retrieval.m
+NC_to_HC_onset    = reg1_reg2_onset_cond3_pooled;
+NC_to_HC_response = reg1_reg2_resp_cond3_pooled;
+NC_to_HC_Onset_Minus_Response = NC_to_HC_onset-NC_to_HC_response ;
+
+HC_to_NC_onset    = reg2_reg1_onset_cond3_pooled;
+HC_to_NC_response = reg2_reg1_resp_cond3_pooled;
+HC_to_NC_Onset_Minus_Response = HC_to_NC_onset-HC_to_NC_response;
+
+fn = 'Fig5i.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn, 'NC_to_HC_Onset_Minus_Response', 'HC_to_NC_Onset_Minus_Response');
+
+clearvars -except fn
+load(fn)
+
+figure
+histogram(NC_to_HC_Onset_Minus_Response,'normalization',  'probability', 'BinWidth', 0.01, 'FaceColor', 'c')
+hold on;
+y=ylim; 
+ylim([0 .1])
+yticks([0 .1])
+xlim([-.25 .25])
+xticks([-.25 .25])
+
+
+figure
+histogram(HC_to_NC_Onset_Minus_Response,'normalization',  'probability', 'BinWidth', 0.01, 'FaceColor', 'k')
+hold on;
+y=ylim; 
+ylim([0 .1])
+yticks([0 .1])
+xlim([-.25 .25])
+xticks([-.25 .25])
+
+%% Fig5k A001_plot_behavior.m
+fn = 'Fig5k.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn, 'pooled_RT_data');
+
+clearvars -except fn
+load(fn)
+
+figure;
+histogram(pooled_RT_data, 'normalization', 'probability','FaceColor', 'k')
+ylabel('probability')
+xlabel('response time')
+title('RT in Tesing Phase')
+set(gca, 'FontSize', 12,'FontWeight','bold')
+
+%% SupFig1aOFC. A029_cluster_perm_test_group_level.m
+fn = 'SupFig1aOFC.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+labels = {'cond3=lure+', 'cond2=lure-'}
+OFCzmap = zmap;
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+save(fn,'freq', 'time', 'OFCzmap', 'cond2', 'cond3','labels')
+
+clearvars -except fn
+load(fn)
+figure;imagesc(time,freq, OFCzmap)
+
+%% SupFig1aCING. A029_cluster_perm_test_group_level.m
+fn = 'SupFig1aCING.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+labels = {'cond3=lure+', 'cond2=lure-'}
+CINGzmap = zmap;
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+save(fn,'freq', 'time', 'CINGzmap', 'cond2', 'cond3','labels')
+
+clearvars -except fn
+load(fn)
+figure;imagesc(time,freq, CINGzmap)
+%% SupFig1aINS. A029_cluster_perm_test_group_level.m
+fn = 'SupFig1aINS.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+labels = {'cond3=lure+', 'cond2=lure-'}
+INSzmap = zmap;
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+save(fn,'freq', 'time', 'INSzmap', 'cond2', 'cond3','labels')
+
+clearvars -except fn
+load(fn)
+figure;imagesc(time,freq, INSzmap)
+%% SupFig1aEC. A029_cluster_perm_test_group_level.m
+fn = 'SupFig1aEC.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+labels = {'cond3=lure+', 'cond2=lure-'}
+ECzmap = zmap;
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+save(fn,'freq', 'time', 'ECzmap', 'cond2', 'cond3','labels')
+
+clearvars -except fn
+load(fn)
+figure;imagesc(time,freq, ECzmap)
+
+
+
+%% SupFig1cBottom  A32_bar_plots_post_cluster_analysis.m
+fn = 'SupFig1cBottom.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+VaribleDim = 'each cell entry contains trial data for a diff subj. n=4 subj'
+labels = {'cond1=repeat+', 'cond2=lure-' 'cond3=lure+', 'cond4=new+'}
+save(fn,  'cond1_save', 'cond2_save', 'cond3_save', 'cond4_save', 'VaribleDim', 'labels');
+
+clearvars -except fn
+load(fn)
+figure;
+hold on
+for i = [1 3 4 5]
+plot([nanmean(cond1_save{i})...
+    nanmean(cond3_save{i})...
+   ], 'LineWidth', 1)
+
+end
+
+figure;
+hold on
+for i = [1 3 4 5]
+plot([nanmean(cond4_save{i})...
+    nanmean(cond3_save{i})...
+   ], 'LineWidth', 1)
+
+end
+
+
+
+
+
+%% SupFig1d plot_PTE_conds_w_delay.m
+LurePlus  = reg1_reg2_condb;
+LureMinus = reg1_reg2_conda;
+x_stps;
+
+ChannelPairLength = size(reg1_reg2_condb,1)
+
+figure; hold on
+h1 = plot(x_stps, nanmean(LurePlus,1), 'm', 'LineWidth', 3)
+h2 = plot(x_stps, nanmean(LureMinus,1), 'b', 'LineWidth', 3)
+
+fn = 'SupFig1d';
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'x_stps','LurePlus', ...
+    'LureMinus',  'ChannelPairLength')
+
+clearvars -except fn
+load(fn)
+
+figure; hold on
+h1 = plot(x_stps, nanmean(LurePlus,1), 'm', 'LineWidth', 3)
+h2 = plot(x_stps, nanmean(LureMinus,1), 'b', 'LineWidth', 3)
+%% SupFig1eTopLeft B002_NC_HC_plots.m
+lureMinus  = reg1_reg2_conda; % lure-
+lurePlus   = reg1_reg2_condb; % lure+
+
+channelPairLength = length(reg1_reg2_conda);
+figure;bar([nanmean(lureMinus)-.5 nanmean(lurePlus)-.5])
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+
+fn = 'SupFig1eTopLeft'
+save(fn,...
+    'lureMinus','lurePlus', ...
+     'channelPairLength')
+
+ clearvars -except fn
+ load(fn)
+ 
+figure;bar([nanmean(lureMinus)-.5 nanmean(lurePlus)-.5])
+%% SupFig1eTopMiddle
+
+lureMinus  = reg1_reg2_conda; % lure-
+lurePlus   = reg1_reg2_condb; % lure+
+
+channelPairLength = length(reg1_reg2_conda);
+figure;bar([nanmean(lureMinus)-.5 nanmean(lurePlus)-.5])
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+
+fn = 'SupFig1eTopMiddle'
+save(fn,...
+    'lureMinus','lurePlus', ...
+     'channelPairLength')
+
+ clearvars -except fn
+ load(fn)
+ 
+figure;bar([nanmean(lureMinus)-.5 nanmean(lurePlus)-.5])
+%% SupFig1eTopRight
+
+
+%% SupFig1eTopRight
+
+lureMinus  = reg1_reg2_conda; % lure-
+lurePlus   = reg1_reg2_condb; % lure+
+
+channelPairLength = length(reg1_reg2_conda);
+figure;bar([nanmean(lureMinus)-.5 nanmean(lurePlus)-.5])
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+
+fn = 'SupFig1eTopRight'
+save(fn,...
+    'lureMinus','lurePlus', ...
+     'channelPairLength')
+
+ clearvars -except fn
+ load(fn)
+ 
+figure;bar([nanmean(lureMinus)-.5 nanmean(lurePlus)-.5])
+
+%% SupFig1eBottomLeft
+
+
+%% SupFig1eBottomRight
+%% SupFig2a. A029_cluster_perm_test_group_level.m  params: encoding
+fn = 'SupFig2a.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+labels = {'cond3=lure+', 'cond2=lure-'}
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+save(fn,'freq', 'time', 'zmap', 'cond2', 'cond3','labels')
+
+clearvars -except fn
+load(fn)
+figure;imagesc(time,freq, zmap)
+
+%% SupFig2b  A035_plot_condition_wise_group_traces.m
+time=linspace(current_pre_stim,current_post_stim, size(trace3,2));
+channelLength=1:size(trace3,1)
+lurePlus=trace3;
+lureMinus=trace2;
+
+fn = 'SupFig2b.mat';
+
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'lurePlus', 'lureMinus', 'time', 'channelLength')
+
+clearvars -except fn
+load(fn)
+
+figure;
+hold on;
+plot(time,nanmean(lurePlus,1), 'm', 'LineWidth', 2);
+plot(time,nanmean(lureMinus,1), 'b', 'LineWidth', 2);
+
+%% SupFig2c. A029_cluster_perm_test_group_level.m  params: encoding
+fn = 'SupFig2c.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+labels = {'cond3=lure+', 'cond2=lure-'}
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+save(fn,'freq', 'time', 'zmap', 'cond2', 'cond3','labels')
+
+clearvars -except fn
+load(fn)
+figure;imagesc(time,freq, zmap)
+%% SupFig2C. A029_cluster_perm_test_group_level.m  params: encoding
+fn = 'SupFig2C.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+labels = {'cond3=lure+', 'cond2=lure-'}
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+save(fn,'freq', 'time', 'zmap', 'cond2', 'cond3','labels')
+
+clearvars -except fn
+load(fn)
+figure;imagesc(time,freq, zmap)
+
+%% SupFig2dRight. A029_cluster_perm_test_group_level.m  params: encoding
+fn = 'SupFig2dRight.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+labels = {'cond3=lure+', 'cond2=lure-'}
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+save(fn,'freq', 'time', 'zmap', 'cond2', 'cond3','labels')
+
+clearvars -except fn
+load(fn)
+figure;imagesc(time,freq, zmap)
+
+%% SupFig2dLeft. A029_cluster_perm_test_group_level.m  params: encoding
+fn = 'SupFig2dLeft.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+labels = {'cond3=lure+', 'cond2=lure-'}
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+save(fn,'freq', 'time', 'zmap', 'cond2', 'cond3','labels')
+
+clearvars -except fn
+load(fn)
+figure;imagesc(time,freq, zmap)
+
+%% SupFig2e B004_PTE_function_of_time.m
+timeList_WindowStartTime = time1_list;
+timeList_WindowEndTime   = time2_list;
+ChannelPairLength = size(conda_val_time_mn_store,2);
+LurePlus_FOT_PTE  = condb_val_time_mn_store;
+LureMinus_FOT_PTE = conda_val_time_mn_store;
+
+fn = 'SupFig2e.mat';
+
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'timeList_WindowStartTime','timeList_WindowEndTime', ...
+    'ChannelPairLength', 'LurePlus_FOT_PTE', 'LureMinus_FOT_PTE')
+
+clearvars -except fn
+load(fn)
+
+
+figure;hold on
+% lure-
+plot( timeList_WindowEndTime,nanmean(LureMinus_FOT_PTE,2), '-o', 'MarkerFaceColor', 'b', 'MarkerEdgeColor', 'b','LineWidth', 1)
+
+
+% lure+
+plot( timeList_WindowEndTime,nanmean(LurePlus_FOT_PTE,2), '-o', 'MarkerFaceColor', 'm', 'MarkerEdgeColor', 'm','LineWidth', 1)
+
+%% SupFig2F plot_PTE_conds_w_delay.m
+LurePlus  = reg1_reg2_condb;
+LureMinus = reg1_reg2_conda;
+x_stps;
+
+ChannelPairLength = size(reg1_reg2_condb,1)
+
+figure; hold on
+h1 = plot(x_stps, nanmean(LurePlus,1), 'm', 'LineWidth', 3)
+h2 = plot(x_stps, nanmean(LureMinus,1), 'b', 'LineWidth', 3)
+
+fn = 'SupFig2F';
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'x_stps','LurePlus', ...
+    'LureMinus',  'ChannelPairLength')
+
+clearvars -except fn
+load(fn)
+
+figure; hold on
+h1 = plot(x_stps, nanmean(LurePlus,1), 'm', 'LineWidth', 3)
+h2 = plot(x_stps, nanmean(LureMinus,1), 'b', 'LineWidth', 3)
+
+%% SupFigS3aBarPlots A32_bar_plots_post_cluster_analysis.m
+fn = 'SupFigS3aBarPlots.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn, 'cond1_grp_val', 'cond2_grp_val', 'cond3_grp_val', 'cond4_grp_val', 'labels');
+
+clearvars -except fn
+load(fn)
+figure;
+ bar_vector_mn1 = [nanmean(cond1_grp_val) nanmean(cond2_grp_val) nanmean(cond3_grp_val) nanmean(cond4_grp_val)];
+bar(1:4,[bar_vector_mn1])         
+
+ylim([-.05 .2])
+
+%% SupFig3aIndivSubj  A32_bar_plots_post_cluster_analysis.m
+fn = 'SupFig3aIndivSubj.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+VaribleDim = 'each cell entry contains trial data for a diff subj. n=8 subj'
+labels = {'cond1=repeat+', 'cond2=lure-' 'cond3=lure+', 'cond4=new+'}
+save(fn,  'cond1_save', 'cond2_save', 'cond3_save', 'cond4_save', 'VaribleDim', 'labels');
+
+clearvars -except fn
+load(fn)
+figure;
+hold on
+for i = 1:8
+plot([nanmean(cond1_save{i})...
+    nanmean(cond3_save{i})...
+   ], 'LineWidth', 1)
+
+end
+
+figure;
+hold on
+for i = 1:8
+plot([nanmean(cond4_save{i})...
+    nanmean(cond3_save{i})...
+   ], 'LineWidth', 1)
+
+end
+
+figure;
+hold on
+for i = 1:8
+plot([nanmean(cond2_save{i})...
+    nanmean(cond3_save{i})...
+   ], 'LineWidth', 1)
+
+end
+
+
+%% SupFig3bIndivSubj  A32_bar_plots_post_cluster_analysis.m
+fn = 'SupFig3bIndivSubj.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+VaribleDim = 'each cell entry contains trial data for a diff subj. n=8 subj'
+labels = {'cond1=repeat+', 'cond3=lure+', 'cond4=new+'}
+save(fn,  'cond1_save', 'cond3_save', 'cond4_save', 'VaribleDim', 'labels');
+
+clearvars -except fn
+load(fn)
+figure;
+hold on
+for i = [1 3 4 5]
+plot([nanmean(cond1_save{i})...
+    nanmean(cond3_save{i})...
+   ], 'LineWidth', 1)
+
+end
+
+figure;
+hold on
+for i = [1 3 4 5]
+plot([nanmean(cond4_save{i})...
+    nanmean(cond3_save{i})...
+   ], 'LineWidth', 1)
+
+end
+
+%% SupFig3cIndivSubj  A32_bar_plots_post_cluster_analysis.m
+fn = 'SupFig3cIndivSubj.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+VaribleDim = 'each cell entry contains trial data for a diff subj. n=8 subj'
+labels = {'cond1=repeat+', 'cond3=lure+', 'cond4=new+'}
+save(fn,  'cond1_save', 'cond3_save', 'cond4_save', 'VaribleDim', 'labels');
+
+clearvars -except fn
+load(fn)
+figure;
+hold on
+for i = [1:8]
+plot([nanmean(cond1_save{i})...
+    nanmean(cond3_save{i})...
+   ], 'LineWidth', 1)
+
+end
+
+figure;
+hold on
+for i = [1:8]
+plot([nanmean(cond4_save{i})...
+    nanmean(cond3_save{i})...
+   ], 'LineWidth', 1)
+
+end
+
+%% SupFig3e A40_CondSpec_PSD_EarlyLateRetrieval.m
+freq=F;
+MatrixLabels = 'chansXfreq';
+
+fn = 'SupFig3e.mat';
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'cond2', 'cond3','freq', 'MatrixLabels')
+
+clearvars -except fn
+load(fn)
+figure;plot(freq,nanmean(cond3,1), 'm', 'LineWidth', 2);
+hold on;plot(freq,nanmean(cond2,1), 'b', 'LineWidth', 2);
+
+xlim([3 27])
+ylim([-10 30])
+%% SupFigS3F. A029_cluster_perm_test_group_level.m  params: encoding
+fn = 'SupFigS3F.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+labels = {'cond3=lure+', 'cond2=lure-'}
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+save(fn,'freq', 'time', 'zmap', 'cond2', 'cond3','labels')
+
+clearvars -except fn
+load(fn)
+figure;imagesc(time,freq, zmap)
+%% SupFig3g A40_CondSpec_PSD_EarlyLateRetrieval.m
+freq=F;
+MatrixLabels = 'chansXfreq';
+
+fn = 'SupFig3g.mat';
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn,'cond2', 'cond3','freq', 'MatrixLabels')
+
+clearvars -except fn
+load(fn)
+figure;plot(freq,nanmean(cond3,1), 'm', 'LineWidth', 2);
+hold on;plot(freq,nanmean(cond2,1), 'b', 'LineWidth', 2);
+
+xlim([3 18])
+ylim([-15 45])
+
+%% SupFig3h B006_interaction_diff_between_early_late_retrieval.m
+NC_to_HC_onset    = reg1_reg2_onset_cond3_pooled;
+NC_to_HC_response = reg1_reg2_resp_cond3_pooled;
+NC_to_HC_Onset_Minus_Response = NC_to_HC_onset-NC_to_HC_response ;
+
+HC_to_NC_onset    = reg2_reg1_onset_cond3_pooled;
+HC_to_NC_response = reg2_reg1_resp_cond3_pooled;
+HC_to_NC_Onset_Minus_Response = HC_to_NC_onset-HC_to_NC_response;
+
+fn = 'SupFig3h.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn, 'NC_to_HC_Onset_Minus_Response', 'HC_to_NC_Onset_Minus_Response');
+
+clearvars -except fn
+load(fn)
+
+figure
+histogram(NC_to_HC_Onset_Minus_Response,'normalization',  'probability', 'BinWidth', 0.01, 'FaceColor', 'c')
+hold on;
+y=ylim; 
+ylim([0 .1])
+yticks([0 .1])
+xlim([-.25 .25])
+xticks([-.25 .25])
+
+
+figure
+histogram(HC_to_NC_Onset_Minus_Response,'normalization',  'probability', 'BinWidth', 0.01, 'FaceColor', 'k')
+hold on;
+y=ylim; 
+ylim([0 .1])
+yticks([0 .1])
+xlim([-.25 .25])
+xticks([-.25 .25])
+
+
+%% SupFig3iLeft B006_interaction_diff_between_early_late_retrieval.m
+NC_to_HC_onset    = reg1_reg2_onset_cond3_pooled;
+NC_to_HC_response = reg1_reg2_resp_cond3_pooled;
+NC_to_HC_Onset_Minus_Response = NC_to_HC_onset-NC_to_HC_response ;
+
+HC_to_NC_onset    = reg2_reg1_onset_cond3_pooled;
+HC_to_NC_response = reg2_reg1_resp_cond3_pooled;
+HC_to_NC_Onset_Minus_Response = HC_to_NC_onset-HC_to_NC_response;
+
+fn = 'SupFig3iLeft.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn, 'NC_to_HC_Onset_Minus_Response', 'HC_to_NC_Onset_Minus_Response');
+
+clearvars -except fn
+load(fn)
+
+figure
+histogram(NC_to_HC_Onset_Minus_Response,'normalization',  'probability', 'BinWidth', 0.01, 'FaceColor', 'c')
+hold on;
+y=ylim; 
+ylim([0 .1])
+yticks([0 .1])
+xlim([-.25 .25])
+xticks([-.25 .25])
+
+
+figure
+histogram(HC_to_NC_Onset_Minus_Response,'normalization',  'probability', 'BinWidth', 0.01, 'FaceColor', 'k')
+hold on;
+y=ylim; 
+ylim([0 .1])
+yticks([0 .1])
+xlim([-.25 .25])
+xticks([-.25 .25])
+
+%% SupFig3iMiddle B006_interaction_diff_between_early_late_retrieval.m
+NC_to_HC_onset    = reg1_reg2_onset_cond3_pooled;
+NC_to_HC_response = reg1_reg2_resp_cond3_pooled;
+NC_to_HC_Onset_Minus_Response = NC_to_HC_onset-NC_to_HC_response ;
+
+HC_to_NC_onset    = reg2_reg1_onset_cond3_pooled;
+HC_to_NC_response = reg2_reg1_resp_cond3_pooled;
+HC_to_NC_Onset_Minus_Response = HC_to_NC_onset-HC_to_NC_response;
+
+fn = 'SupFig3iMiddle.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn, 'NC_to_HC_Onset_Minus_Response', 'HC_to_NC_Onset_Minus_Response');
+
+clearvars -except fn
+load(fn)
+
+figure
+histogram(NC_to_HC_Onset_Minus_Response,'normalization',  'probability', 'BinWidth', 0.01, 'FaceColor', 'c')
+hold on;
+y=ylim; 
+ylim([0 .1])
+yticks([0 .1])
+xlim([-.25 .25])
+xticks([-.25 .25])
+
+
+figure
+histogram(HC_to_NC_Onset_Minus_Response,'normalization',  'probability', 'BinWidth', 0.01, 'FaceColor', 'k')
+hold on;
+y=ylim; 
+ylim([0 .1])
+yticks([0 .1])
+xlim([-.25 .25])
+xticks([-.25 .25])
+
+
+%% SupFig3iRight B006_interaction_diff_between_early_late_retrieval.m
+NC_to_HC_onset    = reg1_reg2_onset_cond3_pooled;
+NC_to_HC_response = reg1_reg2_resp_cond3_pooled;
+NC_to_HC_Onset_Minus_Response = NC_to_HC_onset-NC_to_HC_response ;
+
+HC_to_NC_onset    = reg2_reg1_onset_cond3_pooled;
+HC_to_NC_response = reg2_reg1_resp_cond3_pooled;
+HC_to_NC_Onset_Minus_Response = HC_to_NC_onset-HC_to_NC_response;
+
+fn = 'SupFig3iRight.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+save(fn, 'NC_to_HC_Onset_Minus_Response', 'HC_to_NC_Onset_Minus_Response');
+
+clearvars -except fn
+load(fn)
+
+figure
+histogram(NC_to_HC_Onset_Minus_Response,'normalization',  'probability', 'BinWidth', 0.01, 'FaceColor', 'c')
+hold on;
+y=ylim; 
+ylim([0 .1])
+yticks([0 .1])
+xlim([-.25 .25])
+xticks([-.25 .25])
+
+
+figure
+histogram(HC_to_NC_Onset_Minus_Response,'normalization',  'probability', 'BinWidth', 0.01, 'FaceColor', 'k')
+hold on;
+y=ylim; 
+ylim([0 .1])
+yticks([0 .1])
+xlim([-.25 .25])
+xticks([-.25 .25])
+
+%% SupFigS4BottomLeft. A029_cluster_perm_test_group_level.m  params: encoding
+fn = 'SupFigS4BottomLeft.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+labels = {'cond3=lure+', 'cond2=lure-'}
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+pmap = p_twoSided;
+save(fn,'freq', 'time', 'pmap', 'cond2', 'cond3','labels')
+clearvars -except fn
+load(fn)
+figure;imagesc(time,freq, pmap)
+%% SupFigS4TopLeft. A029_cluster_perm_test_group_level.m  params: encoding
+fn = 'SupFigS4TopLeft.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+labels = {'cond3=lure+', 'cond2=lure-'}
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+pmap = p_twoSided;
+save(fn,'freq', 'time', 'pmap', 'cond2', 'cond3','labels')
+clearvars -except fn
+load(fn)
+figure;imagesc(time,freq, pmap)
+%% SupFigS4TopRight. A029_cluster_perm_test_group_level.m  params: encoding
+fn = 'SupFigS4TopRight.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+labels = {'cond3=lure+', 'cond2=lure-'}
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+pmap = p_twoSided;
+save(fn,'freq', 'time', 'pmap', 'cond2', 'cond3','labels')
+clearvars -except fn
+load(fn)
+figure;imagesc(time,freq, pmap)
+
+%% SupFigS4BottomRight. A029_cluster_perm_test_group_level.m  params: encoding
+fn = 'SupFigS4BottomRight.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+labels = {'cond3=lure+', 'cond2=lure-'}
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+pmap = p_twoSided;
+save(fn,'freq', 'time', 'pmap', 'cond2', 'cond3','labels')
+clearvars -except fn
+load(fn)
+figure;imagesc(time,freq, pmap)
+
+%% SupFigS5. A029_cluster_perm_test_group_level.m  params: encoding
+fn = 'SupFigS5.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+labels = {'cond3=lure+', 'cond2=lure-'}
+freq=freq(end:-1:1);
+time = linspace(current_pre_stim,current_post_stim, size(zmap,2));
+pmap = p_twoSided;
+save(fn,'freq', 'time', 'pmap', 'zmap','cond2', 'cond3','labels')
+clearvars -except fn
+load(fn)
+figure;imagesc(time,freq,  zmap)
+%% SupFig6a B008_NC_HC_plotsChanceAnalysis.m
+fn = 'SupFig6a.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+NC_to_HC_NullDist       = ch1_to_ch2_Mean_NullDist_condb_Cat_Final;
+NC_to_HC_ObservedValues = ch1_to_ch2_condb;
+save(fn, 'NC_to_HC_NullDist', 'NC_to_HC_ObservedValues');
+
+clearvars -except fn
+load(fn)
+figure;histogram(NC_to_HC_NullDist, 'normalization', 'probability')
+hold on; y=ylim;
+line( [nanmean(NC_to_HC_ObservedValues) nanmean(NC_to_HC_ObservedValues)],[0 y(2)], 'color', 'r')
+
+%% SupFig6bg6b.mat B008_NC_HC_plotsChanceAnalysis.m
+fn = 'SupFig6b.mat'
+cd('/mnt/yassamri/iEEG/sandra/NatComSourceData')
+HC_to_NC_NullDist       = ch2_to_ch1_Mean_NullDist_condb_Cat_Final;
+HC_to_NC_ObservedValues = ch2_to_ch1_condb;
+save(fn, 'HC_to_NC_NullDist', 'HC_to_NC_ObservedValues');
+
+clearvars -except fn
+load(fn)
+figure;histogram(HC_to_NC_NullDist, 'normalization', 'probability')
+hold on; y=ylim;
+line( [nanmean(HC_to_NC_ObservedValues) nanmean(HC_to_NC_ObservedValues)],[0 y(2)], 'color', 'r')
+
+
